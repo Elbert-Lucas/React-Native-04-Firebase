@@ -46,6 +46,13 @@ function Colecao({ navigation }) {
         navigation.navigate('Inicial')
     }
     
+    const adicionar = () => {
+        navigation.navigate('Item', {item: {}, operacao: 'adicionar'})
+    }
+    const editar = (item) => {
+        navigation.navigate('Item', {item: item, operacao: 'editar'})
+    }
+    
     return (
         <View style={estiloColecao.container}>
 
@@ -54,14 +61,16 @@ function Colecao({ navigation }) {
                     <MaterialIcons name="arrow-back" size={24} color="white" />
                 </TouchableOpacity>
                 <Text style={estiloColecao.texto}>Coleção</Text>
+                <TouchableOpacity onPress={adicionar}>
                 <MaterialIcons name="add" size={24} color="white" />
+                </TouchableOpacity>
             </View>
 
             <FlatList 
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item.id}
                 data={colecao}
-                renderItem={ ({item}) => <ItemLista data={item} />}
+                renderItem={ ({item}) => <ItemLista data={item} detalhe={() => editar(item)}/>}
             />
 
         </View>
